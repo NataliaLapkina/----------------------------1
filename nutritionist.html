@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Нутрициолог — Личный кабинет</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="page page--nutritionist">
+    <div class="app-shell">
+      <header class="app-header">
+        <p class="app-header__eyebrow">Вход специалиста</p>
+        <h1 class="app-header__title">Кабинет нутрициолога</h1>
+        <p class="app-header__lead">
+          Список клиентов, приглашения, карточка с записями — без таблиц и тревожных статусов.
+        </p>
+      </header>
+
+      <div class="nut-app">
+        <input class="sr-nav" type="radio" name="nut-tab" id="nut-tab-clients" checked />
+        <input class="sr-nav" type="radio" name="nut-tab" id="nut-tab-invites" />
+        <input class="sr-nav" type="checkbox" id="nut-card-open" />
+
+        <div class="nut-panels">
+          <section class="nut-panel nut-panel--clients section" aria-label="Клиенты">
+            <div id="client-list" class="client-list"></div>
+            <div id="empty-clients" class="card card--muted card--spaced-top is-hidden">
+              <div class="empty empty--compact">
+                <strong>Здесь появляются клиенты после приглашения.</strong>
+                Без таблиц — только спокойные карточки.
+              </div>
+              <label class="btn btn--primary btn--card-action" for="nut-tab-invites">Создать приглашение</label>
+            </div>
+          </section>
+
+          <section class="nut-panel nut-panel--invites section" aria-label="Приглашения">
+            <div class="card card--featured">
+              <h2 class="card__title">Приглашение клиенту</h2>
+              <p class="card__subtitle">Электронная почта и ссылка — без Telegram и рассылок в MVP.</p>
+              <div class="invite-field">
+                <div class="field">
+                  <label class="field__label" for="invite-email">Электронная почта клиента</label>
+                  <input
+                    class="input-text"
+                    id="invite-email"
+                    type="email"
+                    placeholder="client@example.com"
+                    autocomplete="email"
+                  />
+                </div>
+                <button type="button" class="btn btn--primary" id="btn-create-invite">Создать приглашение</button>
+              </div>
+              <p id="invite-feedback" class="feedback is-hidden" role="status"></p>
+              <p id="invite-hint" class="hint is-hidden">Ссылка готова. Отправьте её клиенту удобным для вас способом.</p>
+              <div class="field field-block is-hidden" id="invite-link-block">
+                <span class="field__label">Ссылка-приглашение</span>
+                <div class="copy-row">
+                  <input
+                    class="input-text"
+                    id="invite-link"
+                    type="text"
+                    readonly
+                    aria-label="Ссылка приглашения"
+                  />
+                  <button type="button" class="btn btn--ghost btn--inline" id="btn-copy-invite">Скопировать</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="nut-panel nut-panel--detail section" aria-label="Карточка клиента">
+            <label class="link-back" for="nut-card-open">← К списку клиентов</label>
+
+            <div class="card">
+              <h2 class="card__title" id="detail-name">Клиент</h2>
+              <p class="card__subtitle" id="detail-meta"></p>
+
+              <div class="field-block">
+                <button type="button" class="btn btn--ghost" id="btn-toggle-onboarding">
+                  Посмотреть первичный опрос
+                </button>
+                <div id="onboarding-detail-panel" class="card card--nested is-hidden field-block">
+                  <div id="onboarding-detail-content"></div>
+                </div>
+              </div>
+
+              <h3 class="card__title card__title--sm field-block">Последние записи</h3>
+              <p id="detail-reports-empty" class="card__text is-hidden">
+                Записей пока нет — клиент может начать с короткой отметки о дне.
+              </p>
+              <div id="detail-reports"></div>
+            </div>
+
+            <div class="card">
+              <h3 class="card__title card__title--sm">История комментариев</h3>
+              <div id="detail-comments-history" class="field-block"></div>
+
+              <h3 class="card__title card__title--sm field-block">Новый комментарий</h3>
+              <div class="field">
+                <label class="field__label" for="nut-msg">Текст</label>
+                <textarea
+                  class="textarea"
+                  id="nut-msg"
+                  placeholder="Напишите короткий поддерживающий комментарий"
+                ></textarea>
+              </div>
+              <p class="templates-label">Быстрые шаблоны:</p>
+              <div class="templates">
+                <button type="button" class="template-pill">Стабильность важнее идеальности</button>
+                <button type="button" class="template-pill">Спасибо, что отмечаете состояние</button>
+                <button type="button" class="template-pill">Небольшими шагами</button>
+                <button type="button" class="template-pill">Вода в течение дня</button>
+              </div>
+              <button type="button" class="btn btn--primary field-block" id="btn-save-comment">
+                Сохранить комментарий
+              </button>
+              <p id="comment-feedback" class="feedback is-hidden" role="status"></p>
+            </div>
+
+            <div class="card">
+              <h3 class="card__title card__title--sm">История рекомендаций</h3>
+              <div id="detail-recommendations-history" class="field-block"></div>
+
+              <h3 class="card__title card__title--sm field-block">Новая рекомендация</h3>
+              <div class="field">
+                <label class="field__label" for="rec-title">Заголовок рекомендации</label>
+                <input
+                  class="input-text"
+                  id="rec-title"
+                  type="text"
+                  placeholder="Например: Фокус недели"
+                />
+              </div>
+              <div class="field">
+                <label class="field__label" for="rec-body">Текст рекомендации</label>
+                <textarea
+                  class="textarea"
+                  id="rec-body"
+                  placeholder="Напишите короткую рекомендацию для клиента"
+                ></textarea>
+              </div>
+              <button type="button" class="btn btn--primary" id="btn-save-recommendation">
+                Сохранить рекомендацию
+              </button>
+              <p id="rec-feedback" class="feedback is-hidden" role="status"></p>
+            </div>
+          </section>
+        </div>
+
+        <nav class="bottom-nav bottom-nav--nut" aria-label="Разделы нутрициолога">
+          <label class="bottom-nav__item" for="nut-tab-clients">Клиенты</label>
+          <label class="bottom-nav__item" for="nut-tab-invites">Приглашения</label>
+        </nav>
+      </div>
+
+      <p class="section reset-demo-wrap">
+        <button type="button" class="btn btn--ghost btn--inline" id="btn-reset-demo">
+          Сбросить демо-данные
+        </button>
+      </p>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Клиент — Личный кабинет нутрициолога</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="page page--client">
+    <div class="app-shell">
+      <header class="app-header">
+        <p class="app-header__eyebrow">Спокойное наблюдение</p>
+        <h1 class="app-header__title">Ваш день</h1>
+        <p class="app-header__lead">
+          Не трекер и не контроль — короткие записи, рекомендации и комментарии специалиста.
+        </p>
+      </header>
+
+      <div id="no-client-notice" class="card card--muted section is-hidden">
+        <div class="empty">
+          <strong>Откройте приложение по ссылке от нутрициолога</strong>
+          После приглашения здесь появится ваш личный дневник. Ссылку отправит ваш специалист.
+        </div>
+      </div>
+
+      <main id="client-main-content" class="client-app">
+        <input class="sr-nav" type="radio" name="client-tab" id="client-tab-today" checked />
+        <input class="sr-nav" type="radio" name="client-tab" id="client-tab-rec" />
+        <input class="sr-nav" type="radio" name="client-tab" id="client-tab-com" />
+
+        <div class="client-panels">
+          <section class="panel panel--today section" aria-label="Экран «Сегодня»">
+            <div id="onboarding-card" class="card onboarding">
+              <h2 class="card__title">Короткая адаптация</h2>
+              <p class="card__subtitle">3 вопроса, без длинной анкеты</p>
+
+              <div class="onboarding__step">
+                <p class="onboarding__q">1. Что сейчас хочется улучшить?</p>
+                <div class="segment" role="group">
+                  <label class="radio-chip"><input type="radio" name="ob1" /><span>Питание нерегулярно</span></label>
+                  <label class="radio-chip"><input type="radio" name="ob1" /><span>Больше энергии</span></label>
+                  <label class="radio-chip"><input type="radio" name="ob1" /><span>Спокойнее с едой</span></label>
+                  <label class="radio-chip"><input type="radio" name="ob1" /><span>Нужна поддержка</span></label>
+                </div>
+              </div>
+
+              <div class="onboarding__step">
+                <p class="onboarding__q">2. Насколько удобно отмечать состояние?</p>
+                <div class="segment" role="group">
+                  <label class="radio-chip"><input type="radio" name="ob2" /><span>Удобно каждый день</span></label>
+                  <label class="radio-chip"><input type="radio" name="ob2" /><span>Иногда забываю</span></label>
+                  <label class="radio-chip"><input type="radio" name="ob2" /><span>Начну с простого</span></label>
+                </div>
+              </div>
+
+              <div class="onboarding__step">
+                <p class="onboarding__q">3. Что для вас сейчас важно?</p>
+                <div class="segment" role="group">
+                  <label class="radio-chip"><input type="radio" name="ob3" /><span>Регулярность</span></label>
+                  <label class="radio-chip"><input type="radio" name="ob3" /><span>Спокойствие в питании</span></label>
+                  <label class="radio-chip"><input type="radio" name="ob3" /><span>Сон</span></label>
+                  <label class="radio-chip"><input type="radio" name="ob3" /><span>Самочувствие</span></label>
+                </div>
+              </div>
+
+              <p class="quote-success">
+                Спасибо. Мы начнём с лёгких шагов — без давления и лишней сложности.
+              </p>
+              <button type="button" class="btn btn--primary" id="finish-onboarding">Перейти к записям</button>
+              <p id="onboarding-feedback" class="feedback is-hidden" role="status"></p>
+            </div>
+
+            <div class="card card--featured" id="report-form">
+              <h2 class="card__title">Как вы себя чувствуете сегодня?</h2>
+              <p class="card__subtitle">Можно отметить только то, что хочется — без оценок.</p>
+
+              <div class="field">
+                <span class="field__label">Вода за день</span>
+                <div class="segment" role="group" aria-label="Объём воды">
+                  <label class="radio-chip"><input type="radio" name="water" /><span>0,5 л</span></label>
+                  <label class="radio-chip"><input type="radio" name="water" /><span>1 л</span></label>
+                  <label class="radio-chip"><input type="radio" name="water" /><span>1,5 л</span></label>
+                  <label class="radio-chip"><input type="radio" name="water" /><span>2 л</span></label>
+                  <label class="radio-chip"><input type="radio" name="water" /><span>Другое</span></label>
+                </div>
+              </div>
+
+              <div class="field">
+                <span class="field__label">Питание</span>
+                <div class="segment" role="group">
+                  <label class="radio-chip"><input type="radio" name="nutrition" /><span>Получилось</span></label>
+                  <label class="radio-chip"><input type="radio" name="nutrition" /><span>Частично</span></label>
+                  <label class="radio-chip"><input type="radio" name="nutrition" /><span>Сегодня было сложно</span></label>
+                </div>
+              </div>
+
+              <div class="field">
+                <span class="field__label">Самочувствие</span>
+                <div class="segment" role="group">
+                  <label class="radio-chip"><input type="radio" name="wellbeing" /><span>Хорошо</span></label>
+                  <label class="radio-chip"><input type="radio" name="wellbeing" /><span>Нормально</span></label>
+                  <label class="radio-chip"><input type="radio" name="wellbeing" /><span>Усталость</span></label>
+                  <label class="radio-chip"><input type="radio" name="wellbeing" /><span>Дискомфорт</span></label>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="sleep-hours">Сон (часы)</label>
+                <input
+                  class="input-text"
+                  id="sleep-hours"
+                  type="text"
+                  inputmode="decimal"
+                  placeholder="Например: 7,5"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="weight">Вес (необязательно)</label>
+                <input
+                  class="input-text"
+                  id="weight"
+                  type="text"
+                  inputmode="decimal"
+                  placeholder="Например: 68"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="daily-comment">Комментарий к дню</label>
+                <textarea
+                  class="textarea"
+                  id="daily-comment"
+                  placeholder="Что сегодня было особенно заметным?"
+                ></textarea>
+              </div>
+
+              <button type="button" class="btn btn--primary" id="btn-save-report">Сохранить запись</button>
+              <p id="save-feedback" class="feedback is-hidden" role="status"></p>
+            </div>
+
+            <div class="card">
+              <h2 class="card__title card__title--sm">Ваша динамика</h2>
+              <p class="card__subtitle">Здесь появляются сохранённые записи</p>
+              <div id="reports-empty" class="empty empty--compact">
+                <strong>Здесь постепенно будет проявляться ваша динамика.</strong>
+                Начните с первой небольшой записи — без спешки.
+              </div>
+              <div id="reports-history"></div>
+            </div>
+          </section>
+
+          <section class="panel panel--rec section" aria-label="Рекомендации">
+            <div class="card">
+              <h2 class="card__title">Рекомендации</h2>
+              <p class="card__subtitle">Устойчивые подсказки от специалиста, не переписка.</p>
+              <div id="recommendations-list"></div>
+            </div>
+            <div id="recommendations-empty" class="card card--muted">
+              <div class="empty empty--compact">
+                <strong>После консультации здесь появятся рекомендации нутрициолога.</strong>
+                Пока можно спокойно вести короткие записи о дне.
+              </div>
+            </div>
+          </section>
+
+          <section class="panel panel--com section" aria-label="Комментарии специалиста">
+            <div class="card">
+              <h2 class="card__title">Комментарии специалиста</h2>
+              <p class="card__subtitle">Короткая обратная связь. Это не чат — ответа в MVP нет.</p>
+              <ul id="comments-list" class="comment-list"></ul>
+            </div>
+            <div id="comments-empty" class="card card--muted">
+              <div class="empty empty--compact">
+                <strong>После первых записей нутрициолог сможет оставлять здесь комментарии и поддержку.</strong>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <nav class="bottom-nav" aria-label="Основные разделы клиента">
+          <label class="bottom-nav__item" for="client-tab-today">Сегодня</label>
+          <label class="bottom-nav__item" for="client-tab-rec">Рекомендации</label>
+          <label class="bottom-nav__item" for="client-tab-com">Комментарии</label>
+        </nav>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
